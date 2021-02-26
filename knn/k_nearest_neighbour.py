@@ -5,6 +5,7 @@ import matplotlib
 matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 from collections import defaultdict
+from tqdm import tqdm
 from data.data import Data
 from model.base_model import BaseModel
 
@@ -67,7 +68,7 @@ def visualize(knn, x_range, y_range, figname):
     fx, fy = xx.flatten(), yy.flatten()
     Xhat = np.column_stack((fx, fy))
     Yhat = []
-    for x in Xhat:
+    for x in tqdm(Xhat):
         Yhat.append(knn.predict(x))
     zz = np.array(Yhat).reshape(xx.shape)
 
@@ -75,31 +76,29 @@ def visualize(knn, x_range, y_range, figname):
     plt.savefig(figname)
 
 
-def experiment():
+def experiment(data_func, figname):
     k = 5
     p = 2
 
-    data = Data()
-
-    X, Y = data.circle(n1=200, n2=200)
+    print(f"Generate KNN boundary in {figname}")
+    X, Y = data_func(n1=200, n2=200)
 
     knn = KNN(k, distance_func(p))
     knn.train(X, Y)
-
-    testX, testY = data.circle(n1=40, n2=40)
-    print(test_accuracy(knn, testX, testY))
 
     x, y = [], []
     for a, b in X:
         x.append(a); y.append(b)
     min_x, max_x = np.min(x), np.max(x)
     min_y, max_y = np.min(y), np.max(y)
-    visualize(knn, (min_x, max_x), (min_y, max_y), "knn/circle.png")
+    visualize(knn, (min_x, max_x), (min_y, max_y), figname)
 
 
 if __name__ == '__main__':
-    experiment()
-    
+    data = Data()
+    experiment(data.circle, "knn/circle.png")
+    experiment(data.ls_balanced, "knn/ls_balanced.png")
+    experiment(data.ls_unbalanced, "knn/ls_unbalanced.png")
 
 
 
