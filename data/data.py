@@ -32,7 +32,7 @@ class Data:
             D.append(((x, y), l2))
         return self.to_label(D)
 
-    def xor(self):
+    def xor(self, n1=None, n2=None):
         l1, l2 = 0, 1
         X1 = [((0, 0), l1), ((1, 1), l1)]
         X2 = [((0, 1), l2), ((1, 0), l2)]

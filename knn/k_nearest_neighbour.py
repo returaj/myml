@@ -1,13 +1,10 @@
 #! /usr/bin/env python3
 
 import numpy as np
-import matplotlib
-matplotlib.use('Agg')
-from matplotlib import pyplot as plt
 from collections import defaultdict
-from tqdm import tqdm
 from data.data import Data
 from model.base_model import BaseModel
+from model.base_runner import BaseRunner
 
 
 class KNN(BaseModel):
@@ -23,7 +20,9 @@ class KNN(BaseModel):
     def vote(d, k):
         y = defaultdict(lambda : 0)
         max_v = 0
-        for i in range(min(k, len(d))):
+        k = min(k, len(d))
+        k = k-1 if k%2==0 else k
+        for i in range(k):
             _, label = d[i]
             y[label] += 1
             max_v = max(max_v, y[label])
@@ -54,51 +53,31 @@ def cosine_fun():
     return lambda x1, x2: np.dot(x1, x2) / (np.linalg.norm(x1) * np.linalg.norm(x2))
 
 
-def test_accuracy(knn, X, Y):
-    acc = 0
-    for x, y in zip(X, Y):
-        acc += 1 if y == knn.predict(np.array(x)) else 0
-    return acc / len(X)
+class Runner(BaseRunner):
+    def experiment(self, data_func, figname):
+        k = 5
+        p = 2
 
+        print(f"Generate KNN boundary in {figname}")
+        X, Y = data_func(n1=200, n2=200)
 
-def visualize(knn, x_range, y_range, figname):
-    x = np.arange(*x_range, 0.1)
-    y = np.arange(*y_range, 0.1)
-    xx, yy = np.meshgrid(x, y)
-    fx, fy = xx.flatten(), yy.flatten()
-    Xhat = np.column_stack((fx, fy))
-    Yhat = []
-    for x in tqdm(Xhat):
-        Yhat.append(knn.predict(x))
-    zz = np.array(Yhat).reshape(xx.shape)
+        knn = KNN(k, distance_func(p))
+        knn.train(X, Y)
 
-    plt.contourf(xx, yy, zz, cmap='Paired')
-    plt.savefig(figname)
-
-
-def experiment(data_func, figname):
-    k = 5
-    p = 2
-
-    print(f"Generate KNN boundary in {figname}")
-    X, Y = data_func(n1=200, n2=200)
-
-    knn = KNN(k, distance_func(p))
-    knn.train(X, Y)
-
-    x, y = [], []
-    for a, b in X:
-        x.append(a); y.append(b)
-    min_x, max_x = np.min(x), np.max(x)
-    min_y, max_y = np.min(y), np.max(y)
-    visualize(knn, (min_x, max_x), (min_y, max_y), figname)
+        x, y = [], []
+        for a, b in X:
+            x.append(a); y.append(b)
+        min_x, max_x = np.min(x), np.max(x)
+        min_y, max_y = np.min(y), np.max(y)
+        self.visualize(knn, (min_x, max_x), (min_y, max_y), figname)
 
 
 if __name__ == '__main__':
     data = Data()
-    experiment(data.circle, "knn/circle.png")
-    experiment(data.ls_balanced, "knn/ls_balanced.png")
-    experiment(data.ls_unbalanced, "knn/ls_unbalanced.png")
-
+    runner = Runner()
+    runner.experiment(data.circle, "knn/circle.png")
+    runner.experiment(data.ls_balanced, "knn/ls_balanced.png")
+    runner.experiment(data.ls_unbalanced, "knn/ls_unbalanced.png")
+    runner.experiment(data.xor, "knn/xor.png")
 
 
