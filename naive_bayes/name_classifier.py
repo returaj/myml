@@ -7,7 +7,7 @@ from hashlib import md5
 import numpy as np
 import os
 from naive_bayes import NaiveBayes, Categorical
-#from multinomial import MultinomialNaiveBayes
+from multinomial import MultinomialNaiveBayes
 from tqdm import tqdm
 
 
@@ -47,6 +47,7 @@ def to_feature(name):
     for i in range(1, K+1):
         substrings = find_all_substrings(name, i)
         for fid in substrings:
+            #X[fid] += 1
             X[fid] = 1
     return X
 

@@ -36,7 +36,7 @@ class MultinomialNaiveBayes(BaseModel):
         self.update()
 
     def prob(self, x, yid):
-        p = self.prob_labels[yid]
+        p = np.log(self.prob_labels[yid])
         for fi in range(self.fsize):
             p += x[fi] * np.log(self.prob_feature[fi, yid])
         return p
