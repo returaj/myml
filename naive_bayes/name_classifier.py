@@ -7,6 +7,7 @@ from hashlib import md5
 import numpy as np
 import os
 from naive_bayes import NaiveBayes, Categorical
+#from multinomial import MultinomialNaiveBayes
 from tqdm import tqdm
 
 
@@ -95,6 +96,9 @@ def main():
 
         X = np.row_stack((X_male, X_female))
         Y = Y_male + Y_female
+
+        #nb = MultinomialNaiveBayes()
+        #nb.train(X, Y, fsize=FEATURES_SIZE)
 
         nb = NaiveBayes()
         nb.train(X, Y, ftypes=ftypes)
