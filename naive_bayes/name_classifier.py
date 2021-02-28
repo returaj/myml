@@ -68,7 +68,7 @@ def test_accuracy(model, X, Y):
 def main():
     path = os.path.dirname(os.path.abspath(__file__))
     path = os.path.abspath(path + "/../data")
-    male_path = os.path.abspath(path + "/boy_firstname.txt")
+    male_path = os.path.abspath(path + "/male_firstname.txt")
     female_path = os.path.abspath(path + "/female_firstname.txt")
 
     runs, acc = 30, 0
