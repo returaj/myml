@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 
-# Accuracy of 71.5 %
+# Accuracy 71.5 % on Categorical type
+# Accuracy 70.02 % on Multinomial type
 
 import string
 from hashlib import md5
