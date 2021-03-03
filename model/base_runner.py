@@ -11,6 +11,13 @@ class BaseRunner:
     def experiment(self, data_fun, figname):
         raise NotImplementedError
 
+
+    def accuracy(self, model, Xtest, Ytest):
+        acc, n = 0, len(Ytest)
+        for x, y in zip(Xtest, Ytest):
+            acc += 1 if model.predict(x)==y else 0
+        return acc / n
+
     @staticmethod
     def visualize(model, x_range, y_range, figname):
         x = np.arange(*x_range, 0.1)
