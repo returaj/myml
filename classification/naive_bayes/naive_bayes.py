@@ -1,9 +1,9 @@
 #! /usr/bin/env python3
 
 import numpy as np
-from data.data import Data
-from model.base_model import BaseModel
-from model.base_runner import BaseRunner
+from classification.data.data import Data
+from classification.model.base_model import BaseModel
+from classification.model.base_runner import BaseRunner
 
 
 class Feature:
@@ -148,10 +148,10 @@ if __name__ == '__main__':
     data = Data()
     runner = Runner()
 
-    runner.experiment(data.circle, "naive_bayes/circle.png")
-    runner.experiment(data.ls_balanced, "naive_bayes/ls_balanced.png")
-    runner.experiment(data.ls_unbalanced, "naive_bayes/ls_unbalanced.png")
-    runner.experiment(data.xor, "naive_bayes/xor.png")
+    runner.experiment(data.circle, "classification/naive_bayes/circle.png")
+    runner.experiment(data.ls_balanced, "classification/naive_bayes/ls_balanced.png")
+    runner.experiment(data.ls_unbalanced, "classification/naive_bayes/ls_unbalanced.png")
+    runner.experiment(data.xor, "classification/naive_bayes/xor.png")
 
 
 

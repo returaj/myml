@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
 import numpy as np
-from model.base_model import BaseModel
+from classification.model.base_model import BaseModel
 
 
 class MultinomialNaiveBayes(BaseModel):

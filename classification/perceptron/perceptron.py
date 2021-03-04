@@ -1,9 +1,9 @@
 #! /usr/bin/env python3
 
 import numpy as np
-from data.data import Data
-from model.base_model import BaseModel
-from model.base_runner import BaseRunner
+from classification.data.data import Data
+from classification.model.base_model import BaseModel
+from classification.model.base_runner import BaseRunner
 
 
 class Perceptron(BaseModel):
@@ -57,12 +57,9 @@ if __name__ == '__main__':
     data = Data()
     runner = Runner()
 
-    runner.experiment(data.circle, "perceptron/circle.png")
-    runner.experiment(data.ls_balanced, "perceptron/ls_balanced.png")
-    runner.experiment(data.ls_unbalanced, "perceptron/ls_unbalanced.png")
-    runner.experiment(data.xor, "perceptron/xor.png")
-
-
-
+    runner.experiment(data.circle, "classification/perceptron/circle.png")
+    runner.experiment(data.ls_balanced, "classification/perceptron/ls_balanced.png")
+    runner.experiment(data.ls_unbalanced, "classification/perceptron/ls_unbalanced.png")
+    runner.experiment(data.xor, "classification/perceptron/xor.png")
 
 

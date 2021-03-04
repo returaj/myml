@@ -1,9 +1,9 @@
 #! /usr/bin/env python3
 
 import numpy as np
-from data.data import Data
-from model.base_model import BaseModel
-from model.base_runner import BaseRunner
+from classification.data.data import Data
+from classification.model.base_model import BaseModel
+from classification.model.base_runner import BaseRunner
 from tqdm import tqdm
 
 
@@ -72,9 +72,9 @@ if __name__ == '__main__':
     data = Data()
     runner = Runner()
 
-    runner.experiment(data.circle, "logistic_regression/circle.png")
-    runner.experiment(data.ls_balanced, "logistic_regression/ls_balanced.png")
-    runner.experiment(data.ls_unbalanced, "logistic_regression/ls_unbalanced.png")
+    runner.experiment(data.circle, "classification/logistic_regression/circle.png")
+    runner.experiment(data.ls_balanced, "classification/logistic_regression/ls_balanced.png")
+    runner.experiment(data.ls_unbalanced, "classification/logistic_regression/ls_unbalanced.png")
 
 
 

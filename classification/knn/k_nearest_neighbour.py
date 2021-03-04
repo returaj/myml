@@ -2,9 +2,9 @@
 
 import numpy as np
 from collections import defaultdict
-from data.data import Data
-from model.base_model import BaseModel
-from model.base_runner import BaseRunner
+from classification.data.data import Data
+from classification.model.base_model import BaseModel
+from classification.model.base_runner import BaseRunner
 
 
 class KNN(BaseModel):
@@ -75,9 +75,9 @@ class Runner(BaseRunner):
 if __name__ == '__main__':
     data = Data()
     runner = Runner()
-    runner.experiment(data.circle, "knn/circle.png")
-    runner.experiment(data.ls_balanced, "knn/ls_balanced.png")
-    runner.experiment(data.ls_unbalanced, "knn/ls_unbalanced.png")
-    runner.experiment(data.xor, "knn/xor.png")
+    runner.experiment(data.circle, "classification/knn/circle.png")
+    runner.experiment(data.ls_balanced, "classification/knn/ls_balanced.png")
+    runner.experiment(data.ls_unbalanced, "classification/knn/ls_unbalanced.png")
+    runner.experiment(data.xor, "classification/knn/xor.png")
 
 
